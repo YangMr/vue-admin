@@ -1,28 +1,31 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Login from "../views/login";
 
 Vue.use(VueRouter);
 
-const routes = [
+/**
+ *  路由分为两种: 
+ *        静态路由
+ *            不需要权限验证的路由(不管任意用户登录之后都等访问到的路由地址)
+ *        动态路由
+ *            根据用户角色权限从后台返回出来的路由,我们称之为动态路由
+ * 
+ * ***/
+
+//公开路由表
+const publicRoutes = [
   {
-    path: "/",
-    name: "Home",
-    component: Home,
-  },
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
-  },
+    path: "/login",
+    name: "login",
+    component: Login,
+  }
 ];
 
+
+
 const router = new VueRouter({
-  routes,
+  routes : publicRoutes
 });
 
 export default router;
