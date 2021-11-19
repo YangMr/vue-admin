@@ -1,6 +1,11 @@
 <template>
   <!-- 外部图标   -->
-  <div v-if="isExternal" class="svg-external-icon svg-icon" :style="styleExternalIcon" :class="className"></div>
+  <div
+    v-if="isExternal"
+    class="svg-external-icon svg-icon"
+    :style="styleExternalIcon"
+    :class="className"
+  ></div>
   <!-- 项目内图标 -->
   <svg v-else class="svg-icon" :class="className" aria-hidden="true">
     <use :xlink:href="iconName" />
@@ -22,21 +27,21 @@ export default {
     },
   },
   computed: {
-      //验证是否为外部资源图标
-      isExternal(){
-          return external(this.icon)
-      },
-     //加载外部图标地址
-     styleExternalIcon(){
-         return {
-            mask: `url(${this.icon}) no-repeat 50% 50%`,
-            '-webkit-mask': `url(${this.icon}) no-repeat 50% 50%`
-         }
-     },
-     //加载项目内的图标地址
-     iconName(){
-         return  `#icon-${this.icon}`
-     }
+    //验证是否为外部资源图标
+    isExternal() {
+      return external(this.icon);
+    },
+    //加载外部图标地址
+    styleExternalIcon() {
+      return {
+        mask: `url(${this.icon}) no-repeat 50% 50%`,
+        "-webkit-mask": `url(${this.icon}) no-repeat 50% 50%`,
+      };
+    },
+    //加载项目内的图标地址
+    iconName() {
+      return `#icon-${this.icon}`;
+    },
   },
   data() {
     return {};

@@ -1,27 +1,35 @@
 <template>
   <div class="login-container">
-    <el-form class="login-form">
+    <el-form class="login-form" :model="loginForm" :rules="loginRules">
       <!-- title -->
       <div class="title-container">
         <h3 class="title">用户登录</h3>
       </div>
 
       <!-- username -->
-      <el-form-item>
+      <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon="user"></svg-icon>
         </span>
-        <el-input type="text" placeholder="username"></el-input>
+        <el-input
+          v-model="loginForm.username"
+          type="text"
+          placeholder="username"
+        ></el-input>
       </el-form-item>
 
       <!-- password -->
-      <el-form-item>
+      <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon="password"></svg-icon>
         </span>
-        <el-input type="password" placeholder="password"></el-input>
+        <el-input
+          type="password"
+          v-model="loginForm.password"
+          placeholder="password"
+        ></el-input>
         <span class="showPwd">
-          <svg-icon icon="eye" ></svg-icon>
+          <svg-icon icon="eye"></svg-icon>
         </span>
       </el-form-item>
 
@@ -34,71 +42,29 @@
 </template>
 
 <script>
-/**
- * 
- * 
- *  1. 在vue项目中使用element-ui的内置图标
- *        <span class="svg-container">
-                <i class="el-icon-remove"></i>
-            </span>
- * 
- *  2. 在vue项目中使用阿里巴巴适量图标库的图标
- * 
- *      2.1 下载到本地的使用方法
- *          https://blog.csdn.net/tt18473481961/article/details/108065846
- * 
- *      
- * 
- *  3. 使用svg图标
- * 
- *      1. 核心思路:  
- *          1.1 创建一个SvgIcon组件
- *          1.2 通过SvgIcon组件可以加载外部的svg图标以及项目内的svg图标
- *          1.3 封装一个验证方法来判断当前图标时外部图标 还是 项目内的图标
- *          export function isExternal(path) {
-              return /^(https?:|mailto:|tel:)/.test(path);
-            }
-            1.4 在SvgIcon组件通过isExternal来接受icon,进行验证
-            1.5 创建外部图标展示方式
-               <div v-if="isExternal" class="svg-external-icon svg-icon" :style="styleExternalIcon" :class="className"></div>
-            1.6 创建内部图标展示方式
-              <svg v-else class="svg-icon" :class="className" aria-hidden="true">
-                 <use :xlink:href="iconName" />
-              </svg>
-            1.7 定义svg图标掩饰
-                svg-icon {
-                  width: 1em;
-                  height: 1em;
-                  vertical-align: -0.15em;
-                  fill: currentColor;
-                  overflow: hidden;
-                }
-
-                .svg-external-icon {
-                  background-color: currentColor;
-                  mask-size: cover !important;
-                  display: inline-block;
-                }  
-
-            1.8 在src目下创建icons文件夹,在改文件夹内倒入svg的所有图标
-            1.9 在icons目录下创建index.js
-            1.10 加载svg目录下的所有svg图标,并将svgIcon注册为全局组件
-            1.11 在vue.config.js里面配置svg loader
-            1.12 使用svg图标    
- * 
- *  
- *      3.1 使用外部的svg图标
- *          通过在线的地址引入的图标
- * 
- *      3.2 使用内部的svg图标
- *          svg图标下载到本地了,在项目使用本地的svg图标
- * 
- * **/
-
 export default {
-  name: "",
+  name: "login",
   data() {
-    return {};
+    //自定义密码校验规则
+    const validatePassword = (rule, value, callback) => {
+      if(value.length < 6) {
+        callback(new Error("密码不能小于6位"))
+      }else{
+        callback()
+      }
+    }
+    return {
+      //保存的是输入的username 和 password
+      loginForm: {
+        username: "super-admin",
+        password: "123456",
+      },
+      //定义的是表单的校验规则
+      loginRules: {
+        username: [{ required: true, message: "用户名为必填项", trigger: "blur" }],
+        password: [{ validator: validatePassword, trigger: "blur" }],
+      },
+    };
   },
   components: {},
 };

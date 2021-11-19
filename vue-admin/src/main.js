@@ -9,7 +9,7 @@ Vue.use(ElementUI);
 //引入全局公共样式
 import "./style/index.scss";
 
-import "./icons"
+import "./icons";
 
 Vue.config.productionTip = false;
 
