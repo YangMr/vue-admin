@@ -24,12 +24,12 @@
           <svg-icon icon="password"></svg-icon>
         </span>
         <el-input
-          type="password"
+          :type="passwordType"
           v-model="loginForm.password"
           placeholder="password"
         ></el-input>
         <span class="showPwd">
-          <svg-icon icon="eye"></svg-icon>
+          <svg-icon :icon="passwordType == 'password' ? 'eye' : 'eye-open'" @click.native="onChangePwdType"></svg-icon>
         </span>
       </el-form-item>
 
@@ -64,7 +64,21 @@ export default {
         username: [{ required: true, message: "用户名为必填项", trigger: "blur" }],
         password: [{ validator: validatePassword, trigger: "blur" }],
       },
+      //定义密码框的type类型 type如果为text , 我们的密码则是明文状态 , type为password 密码则是密文状态 
+      passwordType : "password"
     };
+  },
+  methods : {
+    //切换密码框的状态
+    onChangePwdType(){
+      //当密码框的状态为password时,就让密码框的状态为文本框, 当密码框的状态不等于passowrd时候, 就密码框的状态为密码框
+      this.passwordType = this.passwordType == "password" ? "text" : "password"
+      // if(this.passwordType == "password"){
+      //   this.passwordType = "text"
+      // }else{
+      //   this.passwordType = "password"
+      // }
+    }
   },
   components: {},
 };
