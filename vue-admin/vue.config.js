@@ -3,6 +3,7 @@ function resolve(dir) {
   return path.join(__dirname, dir);
 }
 module.exports = {
+  publicPath : "./",
   //处理svg图标不显示的问题
   chainWebpack(config) {
     // 设置 svg-sprite-loader
@@ -18,6 +19,19 @@ module.exports = {
         symbolId: "icon-[name]",
       })
       .end();
+  },
+  //vue/cli服务器
+  devServer : {
+    //配置跨域
+    proxy : {
+      "/api" :  {
+        target : "https://imooc-admin.lgdsunday.club/prod-api/",
+        changeOrigin : true,
+        pathRewrite : {
+          "^/api" : ""
+        }
+      }
+    }
   },
   //关闭eslint
   lintOnSave : false

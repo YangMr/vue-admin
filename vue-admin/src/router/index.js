@@ -20,6 +20,11 @@ const publicRoutes = [
     name: "login",
     component: Login,
   },
+  {
+    path: "/",
+    name: "layout",
+    component: ()=> import("../layout"),
+  },
 ];
 
 const router = new VueRouter({

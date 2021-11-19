@@ -35,24 +35,18 @@
 
       <!-- button -->
       <el-form-item>
-        <el-button type="primary" style="width: 100%">登录</el-button>
+        <el-button type="primary" style="width: 100%" @click="handleLogin">登录</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+//密码框的验证规则
+import {validatePassword} from "./rule"
 export default {
   name: "login",
   data() {
-    //自定义密码校验规则
-    const validatePassword = (rule, value, callback) => {
-      if(value.length < 6) {
-        callback(new Error("密码不能小于6位"))
-      }else{
-        callback()
-      }
-    }
     return {
       //保存的是输入的username 和 password
       loginForm: {
@@ -73,11 +67,11 @@ export default {
     onChangePwdType(){
       //当密码框的状态为password时,就让密码框的状态为文本框, 当密码框的状态不等于passowrd时候, 就密码框的状态为密码框
       this.passwordType = this.passwordType == "password" ? "text" : "password"
-      // if(this.passwordType == "password"){
-      //   this.passwordType = "text"
-      // }else{
-      //   this.passwordType = "password"
-      // }
+    },
+    //登录按钮方法
+    async handleLogin(){
+      await this.$store.dispatch("user/login",this.loginForm)
+      this.$router.push("/")
     }
   },
   components: {},
