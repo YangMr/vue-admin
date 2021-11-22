@@ -14,13 +14,19 @@ import store from "./store"
 //定义一个白名单
 const whiteList = ["/login","/404","/401"]
 
-router.beforeEach((to,from,next)=>{
+router.beforeEach(async (to,from,next)=>{
     if(store.getters.token){
         //登录
         if(to.path == "/login"){
             next("/")
         }else{
-            next()
+            if(store.getters.hasUserInfo){
+                next()
+            }else{
+                await store.dispatch("user/getUserInfo");
+                next()
+            }
+            
         }
     }else{
         //未登录
