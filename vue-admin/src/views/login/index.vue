@@ -44,6 +44,7 @@
 <script>
 //密码框的验证规则
 import {validatePassword} from "./rule"
+import {setTimeStamp} from "../../utils/auth"
 export default {
   name: "login",
   data() {
@@ -71,6 +72,8 @@ export default {
     //登录按钮方法
     async handleLogin(){
       await this.$store.dispatch("user/login",this.loginForm)
+      //存储当前登录的时间
+      setTimeStamp()
       this.$router.push("/")
     }
   },

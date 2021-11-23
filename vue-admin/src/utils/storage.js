@@ -33,6 +33,6 @@ export const setItem = (key,value)=> {
 /**
  * 清空数据
  * **/
- export const removeAllItem = (key)=>{
-    localStorage.clear(key)
+ export const removeAllItem = ()=>{
+    localStorage.clear()
 }

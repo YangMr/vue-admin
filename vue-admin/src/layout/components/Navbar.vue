@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <div class="right-menu">
-      <el-dropdown trigger="click" class="avatar-container">
+      <el-dropdown trigger="click"class="avatar-container">
         <div class="avatar-wrapper">
           <el-avatar
             shape="square"
@@ -17,7 +17,7 @@
           <a href="/" target="_blank">
             <el-dropdown-item>课程主页</el-dropdown-item>
           </a>
-          <el-dropdown-item divided>退出登录</el-dropdown-item>
+          <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -29,6 +29,11 @@ export default {
   name: "",
   data() {
     return {};
+  },
+  methods : {
+      logout(){
+          this.$store.dispatch("user/logout")
+      }
   },
   components: {},
 };

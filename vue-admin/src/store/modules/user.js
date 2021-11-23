@@ -1,6 +1,7 @@
 import {login,getUserInfo} from "../../api/sys"
 import md5 from "md5"
-import {setItem,getItem} from "../../utils/storage"
+import router from "../../router"
+import {setItem,getItem,removeAllItem} from "../../utils/storage"
 import {TOKEN,USERINFO} from "../../constant"
 
 export default {
@@ -39,12 +40,22 @@ export default {
         },
 
         /**
-         * 登录动作
+         * 获取用户信息
          * **/
         async getUserInfo({commit}){
             const res = await getUserInfo();
             commit("setUserInfo",res)
             return res;
+        },
+
+         /**
+         * 退出登录
+         * **/
+        async logout({commit}){
+            commit("setToken","");
+            commit("setUserInfo","")
+            removeAllItem()
+            router.push("/login")
         }
     }
 }
