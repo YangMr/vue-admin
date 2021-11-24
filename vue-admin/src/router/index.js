@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/login";
+import Layout from "../layout"
 
 Vue.use(VueRouter);
 
@@ -16,11 +17,15 @@ const publicRoutes = [
     path: "/",
     name: "layout",
     redirect : "/profile",
-    component: ()=> import("../layout"),
+    component: Layout,
     children : [
       {
         path : "/profile",
         name : "profile",
+        meta: {
+          title: 'profile',
+          icon: 'el-icon-user'
+        },
         component: ()=> import("../views/profile")
       },
       {
@@ -41,29 +46,53 @@ const publicRoutes = [
 const privateRoutes = [
   {
     path : "/user",
-    name : "user",
     redirect : "/user/manage",
-    component : ()=> import("../layout"),
+    meta: {
+      title: 'user',
+      icon: 'personnel'
+    },
+    component : Layout,
     children : [
       {
         path : "/user/manage",
-        name : "userManage",
+        meta: {
+          title: 'userManage',
+          icon: 'personnel-manage'
+        },
         component : ()=> import("../views/user-manage")
       },
       {
         path : "/user/role",
-        name : "userRole",
+        meta: {
+          title: 'roleList',
+          icon: 'role'
+        },
         component: ()=> import("../views/role-list")
       },
       {
         path : "/user/permission",
-        name : "userPermission",
+        meta: {
+          title: 'permissionList',
+          icon: 'permission'
+        },
+        
         component: ()=> import("../views/permission-list")
       },
       {
         path : "/user/info/:id",
         name : "userInfo",
+        meta: {
+          title: 'userInfo'
+        },
         component: ()=> import("../views/user-info")
+      },
+      {
+        path: '/user/import',
+        name: 'import',
+        component: () => import('@/views/import/index'),
+        meta: {
+          title: 'excelImport'
+        }
       }
       
     ]
@@ -72,28 +101,52 @@ const privateRoutes = [
     path : "/article",
     component : ()=> import("../layout"),
     redirect : "/article/ranking",
+    meta: {
+      title: 'article',
+      icon: 'article'
+    },
     children : [
       {
         path : "/article/ranking",
         name : "articleRanking",
+        meta: {
+          title: 'articleRanking',
+          icon: 'article-ranking'
+        },
         component : ()=> import("../views/article-ranking")
       },
       {
         path : "/article/create",
         name : "articleCreate",
+        meta: {
+          title: 'articleCreate',
+          icon: 'article-create'
+        },
+
         component : ()=> import("../views/article-create")
       },
       {
         path : "/article/:id",
         name : "article",
+        meta: {
+          title: 'articleDetail'
+        },
         component : ()=> import("../views/article-detail")
+      },
+      {
+        path: '/article/editor/:id',
+        component: () => import('@/views/article-create/index'),
+        meta: {
+          title: 'articleEditor'
+        }
       }
     ]
   }
 ]
 
 const router = new VueRouter({
-  routes: [...publicRoutes,...privateRoutes],
+  routes: [...publicRoutes, ...privateRoutes],
 });
+console.log(router.options.routes)
 
 export default router;
