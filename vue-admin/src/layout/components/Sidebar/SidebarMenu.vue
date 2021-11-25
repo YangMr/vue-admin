@@ -3,9 +3,9 @@
     <el-menu
       :default-active="$route.path"
       class="el-menu-vertical-demo"
-      background-color="#304156"
-      text-color="#bfcbd9"
-      active-text-color="#ffffff"
+      :background-color="$store.getters.cssVar.menuBg"
+      :text-color="$store.getters.cssVar.menuText"
+      :active-text-color="$store.getters.cssVar.menuActiveText"
       unique-opened
       router
     >
@@ -21,8 +21,7 @@ export default {
   name: "",
   data() {
     return {
-      routes : []
-
+      routes : [],
     };
   },
   created(){
