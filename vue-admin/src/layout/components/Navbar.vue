@@ -1,6 +1,7 @@
 <template>
   <div class="navbar">
     <hamburger class="hamburger-container"></hamburger>
+    <breadcrumb class="breadcrumb-container"></breadcrumb>
     <div class="right-menu">
       <el-dropdown trigger="click" class="avatar-container">
         <div class="avatar-wrapper">
@@ -27,6 +28,7 @@
 
 <script>
 import hamburger from "../../components/hamburger.vue"
+import breadcrumb from "../../components/Breadcrumb/index.vue"
 export default {
   name: "",
   data() {
@@ -38,7 +40,8 @@ export default {
       }
   },
   components: {
-    hamburger
+    hamburger,
+    breadcrumb
   },
 };
 </script>
@@ -81,6 +84,12 @@ export default {
       &:hover {
         background: rgba(0, 0, 0, 0.1);
       }
+    }
+
+    .breadcrumb-container{
+      float : left;
+      line-height: 46px;
+      height: 100%;
     }
 }
 </style>
