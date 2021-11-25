@@ -1,5 +1,5 @@
 <template>
-  <div class="app-wrapper">
+  <div class="app-wrapper " :class="[$store.getters.sidebarOpened ? 'openSidebar' : 'hideSidebar']">
       <sidebar></sidebar>  
       <div class="main-container">
           <div class="fixed-header">
@@ -43,5 +43,11 @@ export default {
   z-index: 9;
   background: yellow;
   width:calc(100% - #{$sideBarWidth});
+}
+.hideSidebar{
+
+  .fixed-header{
+    width:calc(100% - 54px);
+  }
 }
 </style>

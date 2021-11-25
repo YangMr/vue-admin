@@ -1,12 +1,13 @@
 <template>
-  <div>
+  <div >
     <el-menu
+      :collapse="!$store.getters.sidebarOpened"
       :default-active="$route.path"
-      class="el-menu-vertical-demo"
       :background-color="$store.getters.cssVar.menuBg"
       :text-color="$store.getters.cssVar.menuText"
       :active-text-color="$store.getters.cssVar.menuActiveText"
-      unique-opened
+      :unique-opened="true"
+      collapse-transition
       router
     >
       <sidebar-item v-for="(item) in menus" :key="item.path" :route="item"></sidebar-item>

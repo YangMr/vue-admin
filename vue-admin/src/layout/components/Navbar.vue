@@ -1,7 +1,8 @@
 <template>
   <div class="navbar">
+    <hamburger class="hamburger-container"></hamburger>
     <div class="right-menu">
-      <el-dropdown trigger="click"class="avatar-container">
+      <el-dropdown trigger="click" class="avatar-container">
         <div class="avatar-wrapper">
           <el-avatar
             shape="square"
@@ -25,6 +26,7 @@
 </template>
 
 <script>
+import hamburger from "../../components/hamburger.vue"
 export default {
   name: "",
   data() {
@@ -35,7 +37,9 @@ export default {
           this.$store.dispatch("user/logout")
       }
   },
-  components: {},
+  components: {
+    hamburger
+  },
 };
 </script>
 
@@ -65,6 +69,18 @@ export default {
                 }
             }
         }
+    }
+
+    .hamburger-container{
+      line-height: 46px;
+      height: 100%;
+      float: left;
+      cursor: pointer;
+      transition: background 0.5s;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
     }
 }
 </style>
