@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li id="contentMsg"></li>
+        <li id="contentTitle"></li>
+    </ul>
+
+    <br>
+
+    <button id="btn">切换语言</button>
+</body>
+</html>
+<script>
+
+ //1. 定义数据源
+
+ let message = {
+     en : {
+         msg : "hello world",
+         title : "hello"
+     },
+     zh : {
+         msg : "你好 世界",
+         title : "你好"
+     }
+ }
+
+ //2. 控制语言切换的环境变量
+
+ let locale = "en"
+
+
+ //3. 定义赋值函数
+ function t(key){
+     console.log(locale)
+    return message[locale][key]
+ }
+
+
+let msg = t("msg")
+
+contentMsg.innerHTML = msg
+
+let title = t("title")
+
+contentTitle.innerHTML = title
+
+
+btn.onclick = () =>{
+    
+
+    if(locale == "en"){
+        locale="zh"
+    }else{
+        locale="en"
+    }
+
+    let msg1 = t("msg")
+
+    contentMsg.innerHTML = msg1
+
+    let title1 = t("title")
+
+    contentTitle.innerHTML = title1
+}
+
+</script>

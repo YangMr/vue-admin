@@ -65,3 +65,63 @@
 
         当菜单展开的时候,我们点击按钮就让菜单进行收缩
         当菜单是收缩的时候,我们点击按钮就让菜单展开
+
+
+- vue项目中使用国际化(vue-i18n)        
+
+    1. 安装vue-i18n
+
+        npm install vue-i18n --save
+
+    2. 操作
+
+       在src目录下,创建i18n文件夹,在在该文件夹内创建index.js
+
+        //1. 引入i8n
+        import VueI18n from 'vue-i18n'
+        import Vue from "vue"
+
+        //2. 创建数据源
+
+        const messages = {
+            en: {
+            msg: {
+                test: 'hello world'
+            }
+            },
+            zh: {
+            msg: {
+                test: '你好世界'
+            }
+            }
+        }
+
+        //3. 控制语言切换的环境变量
+        const locale = 'zh'
+
+
+        //4. 注册i8n
+        Vue.use(VueI18n)
+
+        //5. 初始化i18n
+        let i18n = new VueI18n({
+            messages,
+            locale
+        })
+
+        //6. 导出i18n的实例对象
+        export default i18n    
+
+
+        //7. main.js里面将i18n实例挂载到vue实例上面
+
+        new Vue({
+            router,
+            store,
+            i18n,
+            render: (h) => h(App),
+        }).$mount("#app");
+
+
+        //8. 在页面展示国际化的数据
+          {{$t('msg.test')}}

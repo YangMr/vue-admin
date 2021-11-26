@@ -3,6 +3,7 @@
     <hamburger class="hamburger-container"></hamburger>
     <breadcrumb class="breadcrumb-container"></breadcrumb>
     <div class="right-menu">
+      <lang-select class="right-menu-item"></lang-select>
       <el-dropdown trigger="click" class="avatar-container">
         <div class="avatar-wrapper">
           <el-avatar
@@ -29,6 +30,7 @@
 <script>
 import hamburger from "../../components/hamburger.vue"
 import breadcrumb from "../../components/Breadcrumb/index.vue"
+import LangSelect from "../../components/LangSelect/index.vue"
 export default {
   name: "",
   data() {
@@ -41,7 +43,8 @@ export default {
   },
   components: {
     hamburger,
-    breadcrumb
+    breadcrumb,
+    LangSelect
   },
 };
 </script>
@@ -72,6 +75,16 @@ export default {
                 }
             }
         }
+
+
+        .right-menu-item{
+            display: inline-block;
+            padding: 0 18px 0 0;
+            font-size: 24px;
+            color: #5a5e66;
+            vertical-align: text-bottom;
+            cursor: pointer;
+        }
     }
 
     .hamburger-container{
@@ -91,5 +104,7 @@ export default {
       line-height: 46px;
       height: 100%;
     }
+
+
 }
 </style>
