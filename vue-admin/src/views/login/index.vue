@@ -3,7 +3,8 @@
     <el-form class="login-form" :model="loginForm" :rules="loginRules">
       <!-- title -->
       <div class="title-container">
-        <h3 class="title">用户登录</h3>
+        <h3 class="title">{{ $t("msg.login.title") }}</h3>
+        <lang-select class="lang-select"></lang-select>
       </div>
 
       <!-- username -->
@@ -29,22 +30,32 @@
           placeholder="password"
         ></el-input>
         <span class="showPwd">
-          <svg-icon :icon="passwordType == 'password' ? 'eye' : 'eye-open'" @click.native="onChangePwdType"></svg-icon>
+          <svg-icon
+            :icon="passwordType == 'password' ? 'eye' : 'eye-open'"
+            @click.native="onChangePwdType"
+          ></svg-icon>
         </span>
       </el-form-item>
 
       <!-- button -->
       <el-form-item>
-        <el-button type="primary" style="width: 100%" @click="handleLogin">登录</el-button>
+        <el-button type="primary" style="width: 100%" @click="handleLogin">{{
+          $t("msg.login.loginBtn")
+        }}</el-button>
       </el-form-item>
+
+
+      <div class="tips" v-html="$t('msg.login.desc')"></div>
     </el-form>
   </div>
 </template>
 
 <script>
 //密码框的验证规则
-import {validatePassword} from "./rule"
-import {setTimeStamp} from "../../utils/auth"
+import { validatePassword } from "./rule";
+import { setTimeStamp } from "../../utils/auth";
+import i18n from "../../i18n";
+import LangSelect from "../../components/LangSelect";
 export default {
   name: "login",
   data() {
@@ -56,28 +67,32 @@ export default {
       },
       //定义的是表单的校验规则
       loginRules: {
-        username: [{ required: true, message: "用户名为必填项", trigger: "blur" }],
+        username: [
+          { required: true, message: i18n.t("msg.login.usernameRule"), trigger: "blur" },
+        ],
         password: [{ validator: validatePassword, trigger: "blur" }],
       },
-      //定义密码框的type类型 type如果为text , 我们的密码则是明文状态 , type为password 密码则是密文状态 
-      passwordType : "password"
+      //定义密码框的type类型 type如果为text , 我们的密码则是明文状态 , type为password 密码则是密文状态
+      passwordType: "password",
     };
   },
-  methods : {
+  methods: {
     //切换密码框的状态
-    onChangePwdType(){
+    onChangePwdType() {
       //当密码框的状态为password时,就让密码框的状态为文本框, 当密码框的状态不等于passowrd时候, 就密码框的状态为密码框
-      this.passwordType = this.passwordType == "password" ? "text" : "password"
+      this.passwordType = this.passwordType == "password" ? "text" : "password";
     },
     //登录按钮方法
-    async handleLogin(){
-      await this.$store.dispatch("user/login",this.loginForm)
+    async handleLogin() {
+      await this.$store.dispatch("user/login", this.loginForm);
       //存储当前登录的时间
-      setTimeStamp()
-      this.$router.push("/")
-    }
+      setTimeStamp();
+      this.$router.push("/");
+    },
   },
-  components: {},
+  components: {
+    LangSelect,
+  },
 };
 </script>
 
@@ -146,6 +161,17 @@ $cursor: #fff;
         text-align: center;
         font-weight: bold;
       }
+
+     ::v-deep .lang-select {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #fff;
+        font-size: 22px;
+        padding: 4px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
     }
   }
 
@@ -157,6 +183,13 @@ $cursor: #fff;
     color: $dark_gray;
     cursor: pointer;
     user-select: none;
+  }
+
+  .tips{
+    font-size: 16px;
+    line-height: 28px;
+    color: #fff;
+    margin-bottom: 10px;
   }
 }
 </style>

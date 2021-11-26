@@ -29,7 +29,8 @@ export default {
        this.$store.commit("app/setLanguage",val)
        
        i18n.locale = this.language
-       console.log(i18n)
+       
+       this.$message.success(i18n.t('msg.toast.switchLangSuccess'))
    }
  },
  components : {

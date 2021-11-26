@@ -15,12 +15,12 @@
         </div>
         <el-dropdown-menu slot="dropdown" >
           <router-link to="/a">
-            <el-dropdown-item>首页</el-dropdown-item>
+            <el-dropdown-item>{{$t('msg.navBar.home')}}</el-dropdown-item>
           </router-link>
           <a href="/" target="_blank">
-            <el-dropdown-item>课程主页</el-dropdown-item>
+            <el-dropdown-item>{{$t('msg.navBar.course')}}</el-dropdown-item>
           </a>
-          <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
+          <el-dropdown-item divided @click.native="logout">{{$t('msg.navBar.logout')}}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -31,6 +31,7 @@
 import hamburger from "../../components/hamburger.vue"
 import breadcrumb from "../../components/Breadcrumb/index.vue"
 import LangSelect from "../../components/LangSelect/index.vue"
+
 export default {
   name: "",
   data() {

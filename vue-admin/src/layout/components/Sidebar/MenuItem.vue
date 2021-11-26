@@ -2,11 +2,12 @@
  <div>
      <i v-if="icon.includes('el-icon')" :class="icon"></i>
      <svg-icon v-else :icon="icon"></svg-icon>
-     <span slot="title">{{title}}</span>
+     <span slot="title">{{generateTitle(title)}}</span>
  </div>
 </template>
 
 <script>
+import {generateTitle} from "../../../utils/i18n"
 export default {
  name : "MenuItem",
  props : {
@@ -27,6 +28,9 @@ export default {
  components : {
 
  },
+ methods : {
+     generateTitle
+ }
 }
 </script>
 
