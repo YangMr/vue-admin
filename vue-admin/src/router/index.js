@@ -37,6 +37,11 @@ const publicRoutes = [
         path : "/401",
         name : "401",
         component: ()=> import("../views/error-page/401.vue")
+      },
+      {
+        path : "/test",
+        name : "test",
+        component: ()=> import("../views/Test/index.vue")
       }
     ]
   }

@@ -38,7 +38,8 @@ Vue.use(VueI18n)
 //5. 初始化i18n
 let i18n = new VueI18n({
     messages,
-    locale
+    locale,
+    silentTranslationWarn: true,
 })
 
 

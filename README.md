@@ -67,61 +67,176 @@
         当菜单是收缩的时候,我们点击按钮就让菜单展开
 
 
-- vue项目中使用国际化(vue-i18n)        
+- vue项目中使用国际化(vue-i18n) 
 
-    1. 安装vue-i18n
+    - 具体实现思路
 
-        npm install vue-i18n --save
+        1. 安装vue-i8n
 
-    2. 操作
+           ``` 
+            npm install vue-i18n --save
+           ``` 
 
-       在src目录下,创建i18n文件夹,在在该文件夹内创建index.js
+        2. 在src目录下创建i8n文件夹
 
-        //1. 引入i8n
-        import VueI18n from 'vue-i18n'
-        import Vue from "vue"
+        3. 在i18n文件夹内创建index.js
 
-        //2. 创建数据源
+            ```
+                //1. 引入i8n
+                    import VueI18n from 'vue-i18n'
+                    import Vue from "vue"
+                    import store from "../store"
 
-        const messages = {
-            en: {
-            msg: {
-                test: 'hello world'
-            }
-            },
-            zh: {
-            msg: {
-                test: '你好世界'
-            }
-            }
-        }
+                    //引入自定义的语言包
+                    import zh from "./lang/zh"
+                    import en from "./lang/en"
 
-        //3. 控制语言切换的环境变量
-        const locale = 'zh'
+                    //处理element 国际化
+                    import enLocale from 'element-ui/lib/locale/lang/en'
+                    import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
+                    import ElementLocale from 'element-ui/lib/locale'
 
 
-        //4. 注册i8n
-        Vue.use(VueI18n)
+                    //2. 创建数据
+                    const messages = {
+                        en: {
+                        msg: {
+                            ...en
+                        },
+                        ...enLocale
+                        },
+                        zh: {
+                        msg: {
+                            ...zh
+                        },
+                        ...zhLocale
+                        }
+                    }
 
-        //5. 初始化i18n
-        let i18n = new VueI18n({
-            messages,
-            locale
-        })
+                    //3. 控制语言切换的环境变量
+                    const locale =  store.getters.language;
 
-        //6. 导出i18n的实例对象
-        export default i18n    
+                    //4. 注册i8n
+                    Vue.use(VueI18n)
 
-
-        //7. main.js里面将i18n实例挂载到vue实例上面
-
-        new Vue({
-            router,
-            store,
-            i18n,
-            render: (h) => h(App),
-        }).$mount("#app");
+                    //5. 初始化i18n
+                    let i18n = new VueI18n({
+                        messages,
+                        locale
+                    })
 
 
-        //8. 在页面展示国际化的数据
-          {{$t('msg.test')}}
+
+                    ElementLocale.i18n((key, value) => i18n.t(key, value))
+
+                    //6. 导出i18n的实例对象
+                    export default i18n
+            ```
+
+        4. 将i18n初始化的实例挂载到vue的实例上面
+
+            ```
+                import i18n from "./i18n"
+
+                
+
+                new Vue({
+                    router,
+                    store,
+                    i18n,
+                    render: (h) => h(App),
+                }).$mount("#app");
+
+            ```
+
+        5. 在vuex里面定义语言的切换
+
+            ```
+                //app.js
+                import { LANG } from "../../constant"
+                import {setItem,getItem} from "../../utils/storage"
+                export default {
+                    namespaced: true,
+                    state : {
+                        sidebarOpened : true,
+                        language : getItem(LANG) || "en"
+                    },
+                    mutations : {
+                        triggerSidebarOpened(state){
+                            state.sidebarOpened = !state.sidebarOpened
+                        },
+                        /*设置国际化*/
+                        setLanguage(state,lang){
+                            state.language = lang;
+                            setItem(LANG,lang)
+                        }
+                    },
+                    actions :  {
+
+                    }
+                }
+
+                //getter.js
+                 language : state => state.app.language
+
+            ```    
+
+        6. 封装国际化组件
+            6.1 在components目录下创建LangSelect文件夹
+
+            6.2 在该文件夹内创建index.vue
+
+            6.3 实现国际化组件的封装
+
+                ```
+                <template>
+                    <el-dropdown trigger="click" @command="handleLanguage">
+                    <span class="el-dropdown-link">
+                        <svg-icon icon="language"></svg-icon>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item :disabled="language == 'zh'" command="zh">中文</el-dropdown-item>
+                        <el-dropdown-item :disabled="language == 'en'" command="en">English</el-dropdown-item>
+                    </el-dropdown-menu>
+                    </el-dropdown>
+                </template>
+
+                <script>
+                import i18n from "../../i18n/index"
+                export default {
+                name : "", 
+                data(){
+                return {
+
+                }
+                },
+                computed : {
+                    language(){
+                        return this.$store.getters.language
+                    }
+                },
+                methods : {
+                handleLanguage(val){
+                    this.$store.commit("app/setLanguage",val)
+                    
+                    i18n.locale = this.language
+                    
+                    this.$message.success(i18n.t('msg.toast.switchLangSuccess'))
+                }
+                },
+                components : {
+
+                },
+                }
+                </script>
+
+
+                <style scoped>
+
+                </style>
+                ```
+
+        7. 使用t函数处理我们需要进行中英文切换的内容
+
+
+   
