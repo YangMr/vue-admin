@@ -4,6 +4,7 @@
       <div class="main-container">
           <div class="fixed-header">
               <navbar></navbar>
+              <tags-view></tags-view>
           </div>
           <app-main></app-main>
       </div>
@@ -14,6 +15,7 @@
 import Sidebar from "./components/Sidebar"
 import AppMain from "./components/AppMain.vue"
 import Navbar from "./components/Navbar.vue"
+import TagsView from "../components/tagsview"
 export default {
   name: "",
   data() {
@@ -22,7 +24,8 @@ export default {
   components: {
       Sidebar,
       AppMain,
-      Navbar
+      Navbar,
+      TagsView
   },
 };
 </script>

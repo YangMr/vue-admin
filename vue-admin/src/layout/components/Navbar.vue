@@ -3,6 +3,7 @@
     <hamburger class="hamburger-container"></hamburger>
     <breadcrumb class="breadcrumb-container"></breadcrumb>
     <div class="right-menu">
+      <screen-full class="right-menu-item"></screen-full>
       <lang-select class="right-menu-item"></lang-select>
       <el-dropdown trigger="click" class="avatar-container">
         <div class="avatar-wrapper">
@@ -31,6 +32,7 @@
 import hamburger from "../../components/hamburger.vue"
 import breadcrumb from "../../components/Breadcrumb/index.vue"
 import LangSelect from "../../components/LangSelect/index.vue"
+import ScreenFull from "../../components/ScreenFull/index.vue"
 
 export default {
   name: "",
@@ -45,7 +47,8 @@ export default {
   components: {
     hamburger,
     breadcrumb,
-    LangSelect
+    LangSelect,
+    ScreenFull
   },
 };
 </script>
