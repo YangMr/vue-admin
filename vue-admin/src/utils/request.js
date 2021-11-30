@@ -17,6 +17,7 @@ service.interceptors.request.use(function (config) {
         }
         config.headers.Authorization = `Bearer ${store.getters.token}`
     }
+    config.headers["Accept-Language"] = store.getters.language
 
     return config;
 }, function (error) {

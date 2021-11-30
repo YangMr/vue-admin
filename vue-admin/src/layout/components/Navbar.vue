@@ -5,7 +5,7 @@
     <div class="right-menu">
       <guide class="right-menu-item"></guide>
       <screen-full  class="right-menu-item"></screen-full>
-      <lang-select id="i18n-start" class="right-menu-item"></lang-select>
+      <lang-select  class="right-menu-item"></lang-select>
       <el-dropdown trigger="click" class="avatar-container">
         <div class="avatar-wrapper">
           <el-avatar
