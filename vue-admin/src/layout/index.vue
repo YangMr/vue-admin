@@ -1,10 +1,10 @@
 <template>
   <div class="app-wrapper " :class="[$store.getters.sidebarOpened ? 'openSidebar' : 'hideSidebar']">
-      <sidebar></sidebar>  
+      <sidebar id="menu-start"></sidebar>  
       <div class="main-container">
           <div class="fixed-header">
               <navbar></navbar>
-              <tags-view></tags-view>
+              <tags-view id="tagsview-start"></tags-view>
           </div>
           <app-main></app-main>
       </div>

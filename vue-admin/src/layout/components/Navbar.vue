@@ -1,10 +1,11 @@
 <template>
   <div class="navbar">
     <hamburger class="hamburger-container"></hamburger>
-    <breadcrumb class="breadcrumb-container"></breadcrumb>
+    <breadcrumb id="breadcrumb-start" class="breadcrumb-container"></breadcrumb>
     <div class="right-menu">
-      <screen-full class="right-menu-item"></screen-full>
-      <lang-select class="right-menu-item"></lang-select>
+      <guide class="right-menu-item"></guide>
+      <screen-full  class="right-menu-item"></screen-full>
+      <lang-select id="i18n-start" class="right-menu-item"></lang-select>
       <el-dropdown trigger="click" class="avatar-container">
         <div class="avatar-wrapper">
           <el-avatar
@@ -33,6 +34,7 @@ import hamburger from "../../components/hamburger.vue"
 import breadcrumb from "../../components/Breadcrumb/index.vue"
 import LangSelect from "../../components/LangSelect/index.vue"
 import ScreenFull from "../../components/ScreenFull/index.vue"
+import Guide from "../../components/Guide /index.vue"
 
 export default {
   name: "",
@@ -48,7 +50,8 @@ export default {
     hamburger,
     breadcrumb,
     LangSelect,
-    ScreenFull
+    ScreenFull,
+    Guide
   },
 };
 </script>

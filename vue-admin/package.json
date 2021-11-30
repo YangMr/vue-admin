@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
+    "driver.js": "^0.9.8",
     "element-ui": "^2.15.6",
     "md5": "^2.3.0",
     "screenfull": "^5.1.0",

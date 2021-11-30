@@ -1,7 +1,7 @@
 <template>
     <el-dropdown trigger="click" @command="handleLanguage">
       <span class="el-dropdown-link">
-        <svg-icon icon="language"></svg-icon>
+        <svg-icon id="i18n-start" icon="language"></svg-icon>
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item :disabled="language == 'zh'" command="zh">中文</el-dropdown-item>
