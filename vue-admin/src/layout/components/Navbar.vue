@@ -34,7 +34,7 @@ import hamburger from "../../components/hamburger.vue"
 import breadcrumb from "../../components/Breadcrumb/index.vue"
 import LangSelect from "../../components/LangSelect/index.vue"
 import ScreenFull from "../../components/ScreenFull/index.vue"
-import Guide from "../../components/Guide /index.vue"
+import Guide from "../../components/Guide/index.vue"
 
 export default {
   name: "",
