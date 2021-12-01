@@ -1,10 +1,11 @@
 <template>
  <div>
-     文件导入
+    <upload-excel :onSuccess="onSuccess" ></upload-excel>
  </div>
 </template>
 
 <script>
+import UploadExcel from "../../components/UploadExcel"
 export default {
  name : "", 
  data(){
@@ -12,8 +13,16 @@ export default {
 
   }
  },
+ methods : {
+    beforeUpload(file){
+        
+    },
+    onSuccess(data){
+        console.log(data)
+    }
+ },
  components : {
-
+    UploadExcel
  },
 }
 </script>

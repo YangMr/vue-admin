@@ -133,7 +133,7 @@ export default {
     placeholder: 'excel 文件名称',
     defaultName: '员工管理表',
     close: '取 消',
-    confirm: '导 出',
+    confirm: '确 定',
     importSuccess: ' 条员工数据导入成功',
     dialogTitle1: '确定要删除用户 ',
     dialogTitle2: ' 吗？',

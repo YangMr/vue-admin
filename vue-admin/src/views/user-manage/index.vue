@@ -5,24 +5,24 @@
     3. 获取请求到的数据
     4. 渲染数据 -->
     <el-card class="staff-header">
-      <el-button type="primary">excel导入</el-button>
-      <el-button type="danger">excel导出</el-button>
+      <el-button type="primary" @click="onImportExcelClick">{{$t('msg.excel.importExcel')}}</el-button>
+      <el-button type="danger">{{$t('msg.excel.exportExcel')}}</el-button>
     </el-card>
 
     <el-card>
       <!-- 员工列表展示 -->
       <el-table :data="staffList" border style="width: 100%">
         <el-table-column type="index" label="#"> </el-table-column>
-        <el-table-column prop="username" label="姓名"> </el-table-column>
-        <el-table-column prop="mobile" label="联系方式"> </el-table-column>
-        <el-table-column prop="avatar" label="头像">
+        <el-table-column prop="username" :label="$t('msg.excel.name')"> </el-table-column>
+        <el-table-column prop="mobile" :label="$t('msg.excel.mobile')"> </el-table-column>
+        <el-table-column prop="avatar" :label="$t('msg.excel.avatar')">
           <template slot-scope="scope">
             <div class="user-avatar">
               <el-avatar :size="50" :src="scope.row.avatar"></el-avatar>
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="role" label="角色">
+        <el-table-column prop="role" :label="$t('msg.excel.role')">
           <template slot-scope="scope">
             <div>
               <el-tag v-for="item in scope.row.role" :key="item.id">{{
@@ -31,18 +31,18 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="openTime" label="开通时间">
+        <el-table-column prop="openTime" :label="$t('msg.excel.openTime')">
           <template slot-scope="scope">
             <div>
               {{ scope.row.openTime | formatTime }}
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="date" label="操作" width="240">
+        <el-table-column prop="date" :label="$t('msg.excel.action')" width="240">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary">查看</el-button>
-            <el-button size="mini" type="info">角色</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">删除</el-button>
+            <el-button size="mini" type="primary">{{$t('msg.excel.show')}}</el-button>
+            <el-button size="mini" type="info">{{$t('msg.excel.showRole')}}</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">{{$t('msg.excel.remove')}}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -69,6 +69,7 @@
 
 <script>
 import dayjs from "dayjs";
+import i18n from "../../i18n"
 import { getStaffList,deleteStaff } from "../../api/staff";
 export default {
   name: "userManage",
@@ -110,10 +111,13 @@ export default {
       this.page = val;
       this.getStaffList();
     },
+    onImportExcelClick(){
+      this.$router.push("/user/import")
+    },
     async handleDelete(row){
-      this.$confirm(`确定要删除用户 ${row.username} 吗？`, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+      this.$confirm(`${i18n.t('msg.excel.dialogTitle1')} ${row.username} ${i18n.t('msg.excel.dialogTitle2')}？`, {
+          confirmButtonText: i18n.t('msg.excel.confirm'),
+          cancelButtonText: i18n.t('msg.excel.close'),
           type: 'warning'
         }).then(async () => {
           let res = await deleteStaff(row._id)
@@ -121,7 +125,7 @@ export default {
           if(res == null){
             this.$message({
               type: 'info',
-              message: "删除成功"
+              message: i18n.t('msg.excel.removeSuccess')
             });  
           }
           this.page = 1;
@@ -133,7 +137,6 @@ export default {
             message: '已取消删除'
           });          
         });
-      
     }
   },
 };
