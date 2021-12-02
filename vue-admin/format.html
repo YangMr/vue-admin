@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // 源数据
+    var results = [
+        {
+            "姓名" : "刘备",
+            "开通时间": 44420,
+            "联系方式": 15500000400,
+            "角色": "管理员"
+        },
+        {
+            "姓名" : "张飞",
+            "开通时间": 44420,
+            "联系方式": 15500000400,
+            "角色": "管理员"
+        },
+        {
+            "姓名" : "关于",
+            "开通时间": 44420,
+            "联系方式": 15500000400,
+            "角色": "管理员"
+        },
+        {
+            "姓名" : "赵云",
+            "开通时间": 44420,
+            "联系方式": 15500000400,
+            "角色": "管理员"
+        }
+    ];
+
+    const USER_KEYS = {
+        "姓名" : "username",
+        "开通时间": "openTime",
+        "联系方式": "mobile",
+        "角色": "role"
+    }
+
+    let generateData = (results)=>{
+        let arr = [];
+
+        results.forEach((item,index)=>{
+            let userInfo = {};
+
+            Object.keys(item).forEach((key)=>{
+                userInfo[USER_KEYS[key]] = item[key]
+            })
+
+            arr.push(userInfo)
+
+        })
+
+        return arr;
+    }
+
+
+    console.log(generateData(results))
+
+
+
+    // 最终数据格式
+    var newResults = [
+        {
+            "username" : "刘备",
+            "openTime": 44420,
+            "mobile": 15500000400,
+            "role": "管理员"
+        },
+    ];    
+</script>

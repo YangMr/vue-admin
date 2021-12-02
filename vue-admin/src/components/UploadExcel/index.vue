@@ -6,7 +6,7 @@
         </el-button>
     </div>
     <input @change="handleChange" ref="excelUploadInput" class="excel-upload-input" type="file" accept=".xlsx, .xls" />
-    <div class="drop">
+    <div class="drop" @drop.stop.prevent="handleDrop" @dragover.stop.prevent="handleDragover" @dragenter.stop.prevent="handleDragover">
         <i class="el-icon-upload"></i>
         <span>将文件拖到此处</span>
     </div>
@@ -15,7 +15,7 @@
 
 <script>
 import XLSX from "xlsx"
-import {getHeaderRow} from "./utils"
+import {getHeaderRow,isExcel} from "./utils"
 export default {
  name : "", 
  props : {
@@ -28,6 +28,27 @@ export default {
   }
  },
  methods : {
+     handleDrop(e){
+         let files = e.dataTransfer.files;
+
+         if(files.length !== 1){
+             this.$message.error("必须要有一个文件");
+             return;
+         }
+         
+         let rawFile = files[0];
+
+         if(!isExcel(rawFile)){
+             this.$message.error("文件必须是 .xlsx, .xls, .csv 格式")
+             return ;
+         };
+
+        this.upload(rawFile)
+
+     },
+     handleDragover(e){
+        e.dataTransfer.dropEffect = 'copy'
+     },
      handleUpload(){
         this.loading = true;
         this.$refs["excelUploadInput"].click()
@@ -37,6 +58,7 @@ export default {
          let files = e.target.files[0];
          // 2. 判断有没有获取到上传的文件,如果没有文件,就不能去读取文件的内容
          if(!files) return;
+
          // 3. 调用读取文件内容的方法 
         this.upload(files)
      },
@@ -50,7 +72,7 @@ export default {
          let before = this.beforeUpload(files);
          if(before){
             this.readerData(files)
-             return;
+            return;
          }
      },
      //读取文件数据的方法

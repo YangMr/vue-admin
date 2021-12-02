@@ -24,3 +24,16 @@ export const deleteStaff = (id)=>{
         method : "GET"
     })
 }
+
+/***
+ * 
+ * 新增员工(excel 导入)
+ * 
+ * **/
+export const userBatchImport = (data)=>{
+    return request({
+        url : "/user-manage/batch/import",
+        method : "POST",
+        data
+    })
+}

@@ -1,11 +1,14 @@
 <template>
  <div>
-    <upload-excel :onSuccess="onSuccess" ></upload-excel>
+    <upload-excel  :onSuccess="onSuccess" ></upload-excel>
  </div>
 </template>
 
 <script>
 import UploadExcel from "../../components/UploadExcel"
+import {userBatchImport} from "../../api/staff"
+import {generateData} from "./utils"
+import i18n from "../../i18n"
 export default {
  name : "", 
  data(){
@@ -15,10 +18,17 @@ export default {
  },
  methods : {
     beforeUpload(file){
-        
+      console.log(file)
     },
-    onSuccess(data){
-        console.log(data)
+    async onSuccess(data){
+
+        let results = generateData(data.results);
+   
+        let res = await userBatchImport(results)
+
+        this.$message.success(results.length + i18n.t('msg.excel.importSuccess'))
+
+         this.$router.push('/user/manage')
     }
  },
  components : {
