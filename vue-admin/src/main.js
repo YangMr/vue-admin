@@ -16,6 +16,26 @@ import "./premission"
 import "./icons";
 
 Vue.config.productionTip = false;
+import dayjs from "dayjs"
+
+import Print from 'vue-print-nb'
+Vue.use(Print);
+
+// Vue.filter("formatTime", function (val){
+  // if (!isNaN(val)) {
+  //   val = parseInt(val)
+  // }
+  // return dayjs(val).format("YYYY-MM");
+// })
+
+let dateFilter = (val,format)=>{
+  if (!isNaN(val)) {
+    val = parseInt(val)
+  }
+  return dayjs(val).format(format);
+}
+
+Vue.prototype.$dateFilter = dateFilter
 
 new Vue({
   router,

@@ -37,3 +37,30 @@ export const userBatchImport = (data)=>{
         data
     })
 }
+
+
+/**
+ * 
+ * 员工详情接口
+ * 
+ * ***/
+
+export const staffDetail = (id)=>{
+    return request({
+        url : `/user-manage/detail/${id}`,
+        method : 'GET',
+    })
+}
+
+
+/**
+ * 
+ * 获取全部用户列表数据接口
+ * 
+ * **/
+export const getAllUser = ()=>{
+    return request({
+        url : `/user-manage/list?page=1&size=5`,
+        method : 'GET',
+    })
+}

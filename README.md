@@ -239,4 +239,91 @@
         7. 使用t函数处理我们需要进行中英文切换的内容
 
 
+
+
+- 导出excel
+
+  /***
+       *
+       * 导出 excel
+       *  -1 : 点击导出这个按钮, 触发对应的方法
+       * 
+       *  0. 这个方法里面调用获取用户列表接口
+       * 
+       * 
+       * 
+       * 
+       *  1. 下载Export2Excel.js  这个文件的作用可以将json结构的数据转化为excel所需要的数据
+       *
+       *  2. 复制到utils这个文件夹
+       *
+       *  3. 下载npm i file-saver@2.0.5 --save 这个  这个插件的作用就是将excel文件下载下来
+       *
+       *  4. 在导出excel方法里面导入下载的Export2Excel.js文件
+       *      const excel = await import("../../../utils/Export2Excel")
+       *  5. 复制将json数据转化为二维数组的方法
+       * 
+       *      formatJson(headers, rows) {
+                return rows.map((item) => {
+                  return Object.keys(headers).map((key) => {
+                    // 角色特殊处理
+                    if (headers[key] === "role") {
+                      const roles = item[headers[key]];
+
+                      return JSON.stringify(roles.map((role) => role.title));
+                    }
+                    return item[headers[key]];
+                  });
+                });
+              },
+
+       *  6. 创建一个excel表头映射表, 里面定义的是表头所需要的字段,以及对应所需要的数据的属性名
+       * 
+       *    export const USER_KEY = {
+                "姓名" : "username",
+                "联系方式" : "mobile",
+                "角色" : "role",
+                "开通时间" : "openTime",
+                "入职时间" : ""
+            }
+       * 
+       *  7. 调用转化为二维数组的方法
+       * 
+       *      const data = formatJson(USER_KEY,res)
+       * 
+       *   8. 调用Export2Excel.js 文件的export_json_to_excel这个方法, 将表头的映射表, 二维数组,文件名称, 是否自动列表,文件的类型等这几个参数
+       *    传递到export_json_to_excel这个方法里面,就可以实现导出excel表格了
+       *      
+       *    excel.export_json_to_excel({
+              header : Object.keys(USER_KEY),
+              data,
+              filename : this.excelForm.name,
+              bookType : "xlsx"
+            })
+            
+
+            9. 解决下载的excel文件内的开通为时间戳的问题
+
+                解决方案: 在formatJson这个方法里面做一个判断,拿到对应的时间戳,将时间戳转化为年月日
+       * 
+                 formatJson(headers, rows) {
+                    return rows.map((item) => {
+                      return Object.keys(headers).map((key) => {
+                        // 角色特殊处理
+                        if (headers[key] === "role") {
+                          const roles = item[headers[key]];
+
+                          return JSON.stringify(roles.map((role) => role.title));
+                        }
+                        if(headers[key] == "openTime"){
+                          return this.$dateFilter(item[headers[key]],"YYYY-MM-DD")
+                        }
+
+                        return item[headers[key]];
+                      });
+                    });
+                  },
+       * 
+       */
+
    

@@ -1,12 +1,9 @@
 <template>
   <div class="">
-    <!-- 1. 封装api
-    2. 调用封装的api
-    3. 获取请求到的数据
-    4. 渲染数据 -->
+    
     <el-card class="staff-header">
       <el-button type="primary" @click="onImportExcelClick">{{$t('msg.excel.importExcel')}}</el-button>
-      <el-button type="danger">{{$t('msg.excel.exportExcel')}}</el-button>
+      <el-button type="danger" @click="onToExcelClick">{{$t('msg.excel.exportExcel')}}</el-button>
     </el-card>
 
     <el-card>
@@ -40,7 +37,7 @@
         </el-table-column>
         <el-table-column prop="date" :label="$t('msg.excel.action')" width="240">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary">{{$t('msg.excel.show')}}</el-button>
+            <el-button size="mini" type="primary" @click="toUserInfo(scope.row._id)">{{$t('msg.excel.show')}}</el-button>
             <el-button size="mini" type="info">{{$t('msg.excel.showRole')}}</el-button>
             <el-button size="mini" type="danger" @click="handleDelete(scope.row)">{{$t('msg.excel.remove')}}</el-button>
           </template>
@@ -59,17 +56,14 @@
       </el-pagination>
     </el-card>
 
-    <!-- 1. 自己封装一个日期格式化的方法, 可以用老师封装的库
-    2. 插件 :  moment.js   其他日期格式化插件 -->
-
-    <!-- 1. 安装
-    2. 引入 -->
+    <ExportExcel v-model="exportToExcelVisible"></ExportExcel>
   </div>
 </template>
 
 <script>
 import dayjs from "dayjs";
 import i18n from "../../i18n"
+import ExportExcel from "./components/Export2Excel.vue"
 import { getStaffList,deleteStaff } from "../../api/staff";
 export default {
   name: "userManage",
@@ -79,6 +73,7 @@ export default {
       size: 2,
       total: 0,
       staffList: [],
+      exportToExcelVisible : false
     };
   },
   filters: {
@@ -102,6 +97,12 @@ export default {
       let res = await getStaffList(this.page, this.size);
       this.staffList = res.list;
       this.total = res.total;
+    },
+    onToExcelClick(){
+      this.exportToExcelVisible = true;
+    },
+    toUserInfo(id){
+      this.$router.push(`/user/info/${id}`)
     },
     handleSizeChange(val) {
       this.size = val;
@@ -139,6 +140,9 @@ export default {
         });
     }
   },
+  components : { 
+    ExportExcel
+  }
 };
 </script>
 
