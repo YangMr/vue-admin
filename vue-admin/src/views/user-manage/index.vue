@@ -65,6 +65,11 @@ import dayjs from "dayjs";
 import i18n from "../../i18n"
 import ExportExcel from "./components/Export2Excel.vue"
 import { getStaffList,deleteStaff } from "../../api/staff";
+import {watchSwitchLang} from "../../utils/i18n"
+watchSwitchLang(function(){
+  console.log("test")
+  initGetStaffList()
+})
 export default {
   name: "userManage",
   data() {
@@ -85,9 +90,10 @@ export default {
     },
   },
   created() {
+    window.initGetStaffList = this.getStaffList
     //调用获取员工列表接口
     this.getStaffList();
-
+    
     // console.log("dayjs=>",dayjs(1433088000000).format('YYYY-MM-DD'))
     // console.log("dayjs=>",dayjs(1559318400000).format('YYYY-MM-DD'))
   },

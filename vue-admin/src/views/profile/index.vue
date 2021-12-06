@@ -29,9 +29,12 @@ import ProjectCard from "./components/ProjectCard.vue";
 import feature from "./components/feature.vue";
 import chapter from "./components/chapter.vue";
 import author from "./components/author.vue";
+import {watchSwitchLang} from "../../utils/i18n"
 
-
-
+watchSwitchLang(function(){
+  getFeature()
+  getChapter()
+})
 export default {
   name: "",
   data() {
@@ -43,7 +46,10 @@ export default {
   },
    created(){
       this.getFeature();
-      this.getChapter()
+      this.getChapter();
+
+      window.getFeature = this.getFeature;
+      window.getChapter = this.getChapter;
   },
   methods : {
       //定义获取项目功能数据方法

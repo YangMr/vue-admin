@@ -35,6 +35,10 @@ let dateFilter = (val,format)=>{
   return dayjs(val).format(format);
 }
 
+
+import './utils/dayjs'
+
+
 Vue.prototype.$dateFilter = dateFilter
 
 new Vue({

@@ -14,24 +14,39 @@ import MkEditor from '@toast-ui/editor'
 import '@toast-ui/editor/dist/toastui-editor.css'
 import '@toast-ui/editor/dist/i18n/zh-cn'
 import {commitArticle} from "./commit"
+import {watchSwitchLang} from "../../../utils/i18n"
+watchSwitchLang(function(){
+    console.log("hello wrold123")
+    resetEditor()
+})
+
 export default {
  name : "", 
+ props : {
+     title : {
+         type : String,
+         required : true
+     }
+ },
  data(){
   return {
       mkEditor : null
   }
  },
+ created(){
+     window.resetEditor = this.resetEditor
+ },
  mounted() {
      this.initEditor()
  },
- watch: {
-     "$store.getters.language" : function(){
-        const htmlStr = this.mkEditor.getHTML()
-        this.mkEditor.destroy()
-        this.initEditor()
-        this.mkEditor.setHTML(htmlStr)
-     }
- },
+//  watch: {
+//      "$store.getters.language" : function(){
+        // const htmlStr = this.mkEditor.getHTML()
+        // this.mkEditor.destroy()
+        // this.initEditor()
+        // this.mkEditor.setHTML(htmlStr)
+//      }
+//  },
  methods : {
      initEditor(){
          this.mkEditor = new MkEditor({
@@ -48,6 +63,12 @@ export default {
         this.$message.success("文章创建成功")
         this.$emit("Success")
         this.mkEditor.setHTML("")
+     },
+     resetEditor(){
+            const htmlStr = this.mkEditor.getHTML()
+            this.mkEditor.destroy()
+            this.initEditor()
+            this.mkEditor.setHTML(htmlStr)
      }
  },
  components : {
