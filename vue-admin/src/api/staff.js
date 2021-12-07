@@ -64,3 +64,27 @@ export const getAllUser = ()=>{
         method : 'GET',
     })
 }
+
+/**
+ * 获取指定员工当前角色
+ * ** */
+ export const staffRole = (id)=>{
+    return request({
+        url : `/user-manage/role/${id}`,
+        method : "GET"
+    })
+}
+
+/**
+ * 为员工分配角色
+ */
+
+export const updateStaffRole = (id,roles)=>{
+    return request({
+        url : `/user-manage/update-role/${id}`,
+        method : "post",
+        data : {
+            roles 
+        }
+    })
+}

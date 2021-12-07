@@ -38,7 +38,7 @@
         <el-table-column prop="date" :label="$t('msg.excel.action')" width="240">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="toUserInfo(scope.row._id)">{{$t('msg.excel.show')}}</el-button>
-            <el-button size="mini" type="info">{{$t('msg.excel.showRole')}}</el-button>
+            <el-button size="mini" type="info" @click="openRole(scope.row._id)">{{$t('msg.excel.showRole')}}</el-button>
             <el-button size="mini" type="danger" @click="handleDelete(scope.row)">{{$t('msg.excel.remove')}}</el-button>
           </template>
         </el-table-column>
@@ -57,6 +57,7 @@
     </el-card>
 
     <ExportExcel v-model="exportToExcelVisible"></ExportExcel>
+    <roles :roleInfo="roleInfo" @Success="success"   v-model="roleVisible"></roles>
   </div>
 </template>
 
@@ -66,6 +67,8 @@ import i18n from "../../i18n"
 import ExportExcel from "./components/Export2Excel.vue"
 import { getStaffList,deleteStaff } from "../../api/staff";
 import {watchSwitchLang} from "../../utils/i18n"
+import roles from "./components/roles.vue"
+import {staffRole} from "../../api/staff"
 watchSwitchLang(function(){
   console.log("test")
   initGetStaffList()
@@ -77,7 +80,9 @@ export default {
       page: 1,
       size: 2,
       total: 0,
+      roleInfo : {},
       staffList: [],
+      roleVisible : false,
       exportToExcelVisible : false
     };
   },
@@ -98,6 +103,12 @@ export default {
     // console.log("dayjs=>",dayjs(1559318400000).format('YYYY-MM-DD'))
   },
   methods: {
+    async openRole(id){
+
+      this.roleVisible = true;
+      const res = await staffRole(id)
+      this.roleInfo = res
+    },
     //初始化员工列表数据
     async getStaffList() {
       let res = await getStaffList(this.page, this.size);
@@ -144,10 +155,14 @@ export default {
             message: '已取消删除'
           });          
         });
+    },
+    success(){
+      this.getStaffList()
     }
   },
   components : { 
-    ExportExcel
+    ExportExcel,
+    roles
   }
 };
 </script>
