@@ -71,3 +71,15 @@ export const ArticleRanking = (data)=>{
         data
     })
 }
+
+/**
+ * 编辑文章详情接口
+ * 
+ * **/
+export const editArticleDetail = (data)=>{
+    return request({
+        url :"/article/edit",
+        method : "POST",
+        data
+    })
+}

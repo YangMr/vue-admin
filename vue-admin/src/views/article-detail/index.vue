@@ -7,7 +7,7 @@
                 <span class="author">作者：{{detailData.author}}</span>
                 <span class="time">发布时间：{{detailData.publicDate|relativeTime}}</span>
             </div>
-            <span class="edit">编辑</span>
+            <span class="edit" @click="handleToCreate(detailData._id)">编辑</span>
         </div>
     </div>
     <div class="detail-content" v-html="detailData.content"></div>
@@ -32,6 +32,10 @@ export default {
          const res = await ArticleDetail(params);
          console.log(res)
          this.detailData = res;
+     },
+     handleToCreate(id){
+
+         this.$router.push(`/article/editor/${id}`)
      }
  },   
  components : {
