@@ -32,3 +32,42 @@ export const ArticleList = (page = 1,size = 5)=>{
         }
     })
 }
+
+/***
+ * 
+ * 获取文章详情接口
+ * 
+ */
+export const ArticleDetail = (id)=>{
+    return request({
+        url : `/article/${id}`,
+        method : 'GET',
+    })
+}
+
+/***
+ * 
+ * 删除文章接口
+ * 
+ * **/
+export const DeleteArticle = (id)=>{
+    return request({
+        url : `/article/delete/${id}`,
+        method : 'get',
+    })
+}
+
+
+/**
+ * 
+ * 修改文章排名接口
+ * 
+ */
+export const ArticleRanking = (data)=>{
+
+    return request({
+        url : "/article/sort",
+        method : 'POST',
+        data
+    })
+}
