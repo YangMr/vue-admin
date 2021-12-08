@@ -19,6 +19,7 @@
     "screenfull": "^5.1.0",
     "sortablejs": "^1.14.0",
     "vue": "^2.6.11",
+    "vue-fragment": "^1.5.2",
     "vue-i18n": "^8.26.7",
     "vue-print-nb": "^1.7.5",
     "vue-router": "^3.2.0",

@@ -2,7 +2,7 @@
   <div class="">
     
     <el-card class="staff-header">
-      <el-button type="primary" @click="onImportExcelClick">{{$t('msg.excel.importExcel')}}</el-button>
+      <el-button type="primary" @click="onImportExcelClick" v-permission="['importUser']">{{$t('msg.excel.importExcel')}}</el-button>
       <el-button type="danger" @click="onToExcelClick">{{$t('msg.excel.exportExcel')}}</el-button>
     </el-card>
 
@@ -38,8 +38,8 @@
         <el-table-column prop="date" :label="$t('msg.excel.action')" width="240">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="toUserInfo(scope.row._id)">{{$t('msg.excel.show')}}</el-button>
-            <el-button size="mini" type="info" @click="openRole(scope.row._id)">{{$t('msg.excel.showRole')}}</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">{{$t('msg.excel.remove')}}</el-button>
+            <el-button size="mini" type="info"  v-permission="['distributeRole']" @click="openRole(scope.row._id)">{{$t('msg.excel.showRole')}}</el-button>
+            <el-button size="mini" type="danger" v-permission="['removeUser']" @click="handleDelete(scope.row)">{{$t('msg.excel.remove')}}</el-button>
           </template>
         </el-table-column>
       </el-table>

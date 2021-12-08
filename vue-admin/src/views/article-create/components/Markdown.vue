@@ -4,7 +4,6 @@
        
     </div>
     <div class="bottom">
-      
         <el-button type="primary" @click="onSubmitClick">提交</el-button>   
     </div>
  </div>
@@ -47,9 +46,6 @@ export default {
  },
  mounted() {
      this.initEditor()
-
-     
-     
  },
 //  watch: {
 //      "$store.getters.language" : function(){

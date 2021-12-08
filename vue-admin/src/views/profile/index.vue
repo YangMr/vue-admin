@@ -55,13 +55,11 @@ export default {
       //定义获取项目功能数据方法
       async getFeature(){
           let res = await userFeature()
-          console.log("功能:==》",res)
           this.featureArray = res;
       },
       //定义获取项目章节数据方法
       async getChapter(){
            let res = await userChapter()
-           console.log("章节:==》",res)
            this.chapterArray = res;
       }
   },

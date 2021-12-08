@@ -8,6 +8,9 @@ Vue.use(ElementUI);
 
 import i18n from "./i18n"
 
+import Fragment from 'vue-fragment'
+Vue.use(Fragment.Plugin)
+
 //引入全局公共样式
 import "./style/index.scss";
 
@@ -27,6 +30,25 @@ Vue.use(Print);
   // }
   // return dayjs(val).format("YYYY-MM");
 // })
+
+Vue.directive("permission",{
+  inserted(el,binding){
+
+    let value = binding.value;
+
+    let points = store.getters.userInfo.permission.points;
+    
+    if(value && value instanceof Array){
+      let hasPremission = points.some(item=>{
+        return value.includes(item)
+      })
+
+      if(!hasPremission){
+        el.parentNode && el.parentNode.removeChild(el)
+      }
+    }
+  }
+})
 
 let dateFilter = (val,format)=>{
   if (!isNaN(val)) {

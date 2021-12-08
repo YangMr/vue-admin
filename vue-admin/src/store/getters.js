@@ -8,5 +8,6 @@ export const getters = {
     cssVar : state => variables,
     sidebarOpened : state => state.app.sidebarOpened,
     language : state => state.app.language,
-    tagsViewList : state => state.app.tagsViewList
+    tagsViewList : state => state.app.tagsViewList,
+    routes : state=> state.permission.routes
 }

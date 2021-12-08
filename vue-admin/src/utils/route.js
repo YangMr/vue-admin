@@ -12,7 +12,7 @@ import path from "path"
 // }
 
 
-//获取所有一级路由并且包含chidlren的数据
+// //获取所有一级路由并且包含chidlren的数据
 // export let filterRouters = (routes)=>{
 //     let childrenRoutes = getChildrenRoutes(routes);
 //     return routes.filter((item,index)=>{
