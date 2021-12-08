@@ -6,18 +6,21 @@
         <el-table-column prop="title" label="名称" > </el-table-column>
         <el-table-column prop="describe" label="描述"> </el-table-column>
         <el-table-column label="操作"> 
-            <template #default>
-               <el-button type="primary" size="mini">分配权限</el-button>
+            <template #default="{row}">
+               <el-button type="primary" size="mini" @click="openPremission(row)">分配权限</el-button>
             </template>
         </el-table-column>
       </el-table>
     </el-card>
+
+    <role-list ref="roleList" :loadRoleList="loadRoleList" :id="id"  ></role-list>
   </div>
 </template>
 
 <script>
 import { roleList } from "../../api/role";
 import {watchSwitchLang} from "../../utils/i18n"
+import RoleList from "./components/role-list.vue"
 watchSwitchLang(function(){
     loadRoleList()
 })
@@ -26,6 +29,7 @@ export default {
   data() {
     return {
       roleList: [],
+      id : ""
     };
   },
   created() {
@@ -34,12 +38,20 @@ export default {
   },
   methods: {
     async loadRoleList() {
+      this.id = ""
       const res = await roleList();
       console.log(res);
       this.roleList = res;
     },
+    openPremission(row){
+      this.id = row.id
+      this.$refs["roleList"].open()
+    },
+    closePremission(){
+     this.$refs["roleList"].close()
+    }
   },
-  components: {},
+  components: {RoleList},
 };
 </script>
 
