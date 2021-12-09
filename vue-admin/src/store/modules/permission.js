@@ -17,6 +17,12 @@ export default {
                 routes.push(...privateRoutes.filter(item=>item.name == key))
             })
 
+            routes.push({
+                path : "/:catchAll(.*)",
+                redirect: "/404"
+            })
+
+
             commit("setRoutes",routes)
 
             return routes;

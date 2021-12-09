@@ -4,7 +4,7 @@ export default {
     namespaced: true,
     state : {
         sidebarOpened : true,
-        language : getItem(LANG) || "en",
+        language : getItem(LANG) || "zh",
         tagsViewList : getItem("tagsView") || []
     },
     mutations : {

@@ -27,10 +27,14 @@ router.beforeEach(async (to,from,next)=>{
                const res =  await store.dispatch("user/getUserInfo");
                //menus数据的内容是 当前这个用户所需要的路由
                let menus = res.permission.menus;
-               console.log(menus)
+
                const routes = await store.dispatch("permission/filterRoutes",menus);
-               console.log(routes)
-               next()
+
+               routes.forEach(item=>{
+                   router.addRoute(item)
+               })
+
+               next(to.path)
             }
         }
     }else{

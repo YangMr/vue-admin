@@ -1,6 +1,6 @@
 import {login,getUserInfo} from "../../api/sys"
 import md5 from "md5"
-import router from "../../router"
+import router,{resetRouter} from "../../router"
 import {setItem,getItem,removeAllItem} from "../../utils/storage"
 import {TOKEN,USERINFO} from "../../constant"
 
@@ -52,9 +52,12 @@ export default {
          * 退出登录
          * **/
         async logout({commit}){
+            
             commit("setToken","");
             commit("setUserInfo","")
             removeAllItem()
+            resetRouter()
+            // window.location.href = "/login"
             router.push("/login")
         }
     }

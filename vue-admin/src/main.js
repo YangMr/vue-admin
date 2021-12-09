@@ -21,6 +21,27 @@ import dayjs from "dayjs"
 import Print from 'vue-print-nb'
 Vue.use(Print);
 
+Vue.directive("permission",{
+   inserted(el,binding){
+     //获取到按钮所绑定的自定义指令的权限
+      let value = binding.value
+
+     //获取到后台所返回到的权限列表
+     let permissionList = store.getters.hasUserInfo.permission.points;
+     
+     if(value && value instanceof Array){
+      const hasPermission = value.some(item=>{
+          return permissionList.includes(item)
+      });
+
+      if(!hasPermission){
+        el.parentNode && el.parentNode.removeChild(el)
+      }
+     }
+     
+   }
+})
+
 // Vue.filter("formatTime", function (val){
   // if (!isNaN(val)) {
   //   val = parseInt(val)

@@ -51,7 +51,7 @@ export const publicRoutes = [
         path: "/test",
         name: "test",
         component: () => import("../views/Test/index.vue")
-      }
+      },
     ]
   }
 ];
@@ -170,10 +170,18 @@ export const privateRoutes = [
 //   }
 // ]
 
- const router = new VueRouter({
+const router = new VueRouter({
   routes: [...publicRoutes],
 });
 
+
+export function resetRouter() {
+  const newRouter = new VueRouter({
+    mode: 'hash', // 
+    routes: publicRoutes,  //引入的公共路由
+  });
+  router.matcher = newRouter.matcher; // reset router
+}
 
 const originalPush = VueRouter.prototype.push
 

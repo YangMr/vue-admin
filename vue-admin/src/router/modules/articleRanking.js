@@ -23,6 +23,13 @@ export default {
           title: 'articleDetail'
         },
         component: () => import("../../views/article-detail")
+      },
+      {
+        path: '/article/editor/:id',
+        component: () => import('../../views/article-create'),
+        meta: {
+          title: 'articleEditor'
+        }
       }
     ]
   }

@@ -16,13 +16,6 @@ export default {
           icon: 'article-create'
         },
         component: () => import("../../views/article-create")
-      },
-      {
-        path: '/article/editor/:id',
-        component: () => import('../../views/article-create'),
-        meta: {
-          title: 'articleEditor'
-        }
       }
     ]
   }
