@@ -20,14 +20,18 @@ router.beforeEach(async (to,from,next)=>{
         if(to.path == "/login"){
             next("/")
         }else{
-            console.log(store.getters.hasUserInfo)
+            //用户已经登录了,访问的也不是登录页 
             if(store.getters.hasUserInfo){
                 next()
             }else{
-                await store.dispatch("user/getUserInfo");
-                next()
+               const res =  await store.dispatch("user/getUserInfo");
+               //menus数据的内容是 当前这个用户所需要的路由
+               let menus = res.permission.menus;
+               console.log(menus)
+               const routes = await store.dispatch("permission/filterRoutes",menus);
+               console.log(routes)
+               next()
             }
-            
         }
     }else{
         //未登录

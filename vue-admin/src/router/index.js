@@ -5,9 +5,18 @@ import Layout from "../layout"
 
 Vue.use(VueRouter);
 
+import userManage from "./modules/userManage"
+import roleList from "./modules/roleList"
+import permissionList from "./modules/permissionList"
+import articleRanking from "./modules/articleRanking"
+import articleCreate from "./modules/articleCreate"
+
+
+
+
 
 //公开路由表
-const publicRoutes = [
+export const publicRoutes = [
   {
     path: "/login",
     name: "login",
@@ -16,142 +25,155 @@ const publicRoutes = [
   {
     path: "/",
     name: "layout",
-    redirect : "/profile",
+    redirect: "/profile",
     component: Layout,
-    children : [
+    children: [
       {
-        path : "/profile",
-        name : "profile",
+        path: "/profile",
+        name: "profile",
         meta: {
           title: 'profile',
           icon: 'el-icon-user'
         },
-        component: ()=> import("../views/profile")
+        component: () => import("../views/profile")
       },
       {
-        path : "/404",
-        name : "404",
-        component: ()=> import("../views/error-page/404.vue")
+        path: "/404",
+        name: "404",
+        component: () => import("../views/error-page/404.vue")
       },
       {
-        path : "/401",
-        name : "401",
-        component: ()=> import("../views/error-page/401.vue")
+        path: "/401",
+        name: "401",
+        component: () => import("../views/error-page/401.vue")
       },
       {
-        path : "/test",
-        name : "test",
-        component: ()=> import("../views/Test/index.vue")
+        path: "/test",
+        name: "test",
+        component: () => import("../views/Test/index.vue")
       }
     ]
   }
 ];
 
-//私有路由表
-const privateRoutes = [
-  {
-    path : "/user",
-    redirect : "/user/manage",
-    meta: {
-      title: 'user',
-      icon: 'personnel'
-    },
-    component : Layout,
-    children : [
-      {
-        path : "/user/manage",
-        meta: {
-          title: 'userManage',
-          icon: 'personnel-manage'
-        },
-        component : ()=> import("../views/user-manage")
-      },
-      {
-        path : "/user/role",
-        meta: {
-          title: 'roleList',
-          icon: 'role'
-        },
-        component: ()=> import("../views/role-list")
-      },
-      {
-        path : "/user/permission",
-        meta: {
-          title: 'permissionList',
-          icon: 'permission'
-        },
-        
-        component: ()=> import("../views/permission-list")
-      },
-      {
-        path : "/user/info/:id",
-        name : "userInfo",
-        meta: {
-          title: 'userInfo'
-        },
-        component: ()=> import("../views/user-info")
-      },
-      {
-        path: '/user/import',
-        name: 'import',
-        component: () => import('@/views/import/index'),
-        meta: {
-          title: 'excelImport'
-        }
-      }
-      
-    ]
-  },
-  {
-    path : "/article",
-    component : ()=> import("../layout"),
-    redirect : "/article/ranking",
-    meta: {
-      title: 'article',
-      icon: 'article'
-    },
-    children : [
-      {
-        path : "/article/ranking",
-        name : "articleRanking",
-        meta: {
-          title: 'articleRanking',
-          icon: 'article-ranking'
-        },
-        component : ()=> import("../views/article-ranking")
-      },
-      {
-        path : "/article/create",
-        name : "articleCreate",
-        meta: {
-          title: 'articleCreate',
-          icon: 'article-create'
-        },
 
-        component : ()=> import("../views/article-create")
-      },
-      {
-        path : "/article/:id",
-        name : "article",
-        meta: {
-          title: 'articleDetail'
-        },
-        component : ()=> import("../views/article-detail")
-      },
-      {
-        path: '/article/editor/:id',
-        component: () => import('@/views/article-create/index'),
-        meta: {
-          title: 'articleEditor'
-        }
-      }
-    ]
-  }
+//自定义的私有路由表
+export const privateRoutes = [
+  userManage,
+  roleList,
+  permissionList,
+  articleRanking,
+  articleCreate
 ]
 
-const router = new VueRouter({
-  routes: [...publicRoutes, ...privateRoutes],
+//问题: 任何用户在登录的时候,等能够拥有完整的私有路由
+
+//私有路由表
+// const privateRoutes = [
+//   {
+//     path: "/user",
+//     redirect: "/user/manage",
+//     meta: {
+//       title: 'user',
+//       icon: 'personnel'
+//     },
+//     component: Layout,
+//     children: [
+//       {
+//         path: "/user/manage",
+//         meta: {
+//           title: 'userManage',
+//           icon: 'personnel-manage'
+//         },
+//         component: () => import("../views/user-manage")
+//       },
+//       {
+//         path: "/user/role",
+//         meta: {
+//           title: 'roleList',
+//           icon: 'role'
+//         },
+//         component: () => import("../views/role-list")
+//       },
+//       {
+//         path: "/user/permission",
+//         meta: {
+//           title: 'permissionList',
+//           icon: 'permission'
+//         },
+
+//         component: () => import("../views/permission-list")
+//       },
+//       {
+//         path: "/user/info/:id",
+//         name: "userInfo",
+//         meta: {
+//           title: 'userInfo'
+//         },
+//         component: () => import("../views/user-info")
+//       },
+//       {
+//         path: '/user/import',
+//         name: 'import',
+//         component: () => import('@/views/import/index'),
+//         meta: {
+//           title: 'excelImport'
+//         }
+//       }
+
+//     ]
+//   },
+//   {
+//     path: "/article",
+//     component: () => import("../layout"),
+//     redirect: "/article/ranking",
+//     meta: {
+//       title: 'article',
+//       icon: 'article'
+//     },
+//     children: [
+//       {
+//         path: "/article/ranking",
+//         name: "articleRanking",
+//         meta: {
+//           title: 'articleRanking',
+//           icon: 'article-ranking'
+//         },
+//         component: () => import("../views/article-ranking")
+//       },
+//       {
+//         path: "/article/create",
+//         name: "articleCreate",
+//         meta: {
+//           title: 'articleCreate',
+//           icon: 'article-create'
+//         },
+
+//         component: () => import("../views/article-create")
+//       },
+//       {
+//         path: "/article/:id",
+//         name: "article",
+//         meta: {
+//           title: 'articleDetail'
+//         },
+//         component: () => import("../views/article-detail")
+//       },
+//       {
+//         path: '/article/editor/:id',
+//         component: () => import('@/views/article-create/index'),
+//         meta: {
+//           title: 'articleEditor'
+//         }
+//       }
+//     ]
+//   }
+// ]
+
+ const router = new VueRouter({
+  routes: [...publicRoutes],
 });
+
 
 const originalPush = VueRouter.prototype.push
 

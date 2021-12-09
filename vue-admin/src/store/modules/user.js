@@ -19,7 +19,7 @@ export default {
         }, 
         setUserInfo(state,userInfo){
             state.userInfo = userInfo;
-            setItem(USERINFO,userInfo)
+            // setItem(USERINFO,userInfo)
         }
     },
     
